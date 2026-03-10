@@ -24,6 +24,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Role role;
 
     /**
      * Every field must be present and not null.
@@ -35,6 +36,20 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.role = null;
+    }
+
+    /**
+     * Every field must be present and not null. Includes role field.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Role role) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.role = role;
     }
 
     public Name getName() {
@@ -51,6 +66,14 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    /**
+     * Returns the role of the person.
+     * May be null if role was not specified.
+     */
+    public Role getRole() {
+        return role;
     }
 
     /**
