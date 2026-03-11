@@ -27,16 +27,25 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted player: %1$s";
 
-    public static final String MESSAGE_DELETE_PERSON_CONFIRMATION = "Confirm deletion of player: %1$s \n" +
-            "Run 'delete %2$s confirm' to proceed.";
+    public static final String MESSAGE_DELETE_PERSON_CONFIRMATION = "Confirm deletion of player: %1$s \n"
+            + "Run 'delete %2$s confirm' to proceed.";
 
     private final Index targetIndex;
     private final boolean isConfirmed;
 
+    /**
+     * Creates a {@code DeleteCommand} that requests confirmation for deletion.
+     */
     public DeleteCommand(Index targetIndex) {
         this(targetIndex, false);
     }
 
+    /**
+     * Creates a {@code DeleteCommand}.
+     *
+     * @param targetIndex index of the player in the filtered list.
+     * @param isConfirmed whether the deletion has been explicitly confirmed.
+     */
     public DeleteCommand(Index targetIndex, boolean isConfirmed) {
         this.targetIndex = targetIndex;
         this.isConfirmed = isConfirmed;
