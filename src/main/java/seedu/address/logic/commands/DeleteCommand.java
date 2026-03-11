@@ -17,18 +17,29 @@ import seedu.address.model.person.Person;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String CONFIRM_KEYWORD = "confirm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the player identified by the index number used in the displayed player list.\n"
+            + "Parameters: INDEX (must be a positive integer) [confirm]\n"
+            + "Examples: " + COMMAND_WORD + " 1\n"
+            + "          " + COMMAND_WORD + " 1 " + CONFIRM_KEYWORD;
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted player: %1$s";
+
+    public static final String MESSAGE_DELETE_PERSON_CONFIRMATION = "Confirm deletion of player: %1$s \n" +
+            "Run 'delete %2$s confirm' to proceed.";
 
     private final Index targetIndex;
+    private final boolean isConfirmed;
 
     public DeleteCommand(Index targetIndex) {
+        this(targetIndex, false);
+    }
+
+    public DeleteCommand(Index targetIndex, boolean isConfirmed) {
         this.targetIndex = targetIndex;
+        this.isConfirmed = isConfirmed;
     }
 
     @Override
@@ -41,6 +52,12 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (!isConfirmed) {
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_CONFIRMATION,
+                    Messages.format(personToDelete), targetIndex.getOneBased()));
+        }
+
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
@@ -57,13 +74,15 @@ public class DeleteCommand extends Command {
         }
 
         DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        return targetIndex.equals(otherDeleteCommand.targetIndex)
+                && isConfirmed == otherDeleteCommand.isConfirmed;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
+                .add("isConfirmed", isConfirmed)
                 .toString();
     }
 }

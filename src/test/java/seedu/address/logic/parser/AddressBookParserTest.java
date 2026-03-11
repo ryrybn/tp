@@ -54,6 +54,14 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_deleteWithConfirm() throws Exception {
+        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                        + " " + DeleteCommand.CONFIRM_KEYWORD);
+        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON, true), command);
+    }
+
+    @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
