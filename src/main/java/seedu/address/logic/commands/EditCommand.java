@@ -107,9 +107,14 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Role updatedRole = editPersonDescriptor.getRole().orElse(personToEdit.getRole());
 
+        //if block to be removed when person constructor no longer accepts null role
+        if (updatedRole == null) {
+            return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        }
+
         return switch (updatedRole) {
-            case PLAYER -> new Player(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
-            case STAFF -> new Staff(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        case PLAYER -> new Player(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        case STAFF -> new Staff(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
         };
     }
 
