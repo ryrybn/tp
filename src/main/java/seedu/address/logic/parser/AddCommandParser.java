@@ -34,7 +34,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ROLE, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ROLE, PREFIX_PHONE,
+                        PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         String preamble = argMultimap.getPreamble();
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
@@ -52,8 +53,8 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         // TODO: replace with factory method
         return switch (role) {
-            case PLAYER -> new AddCommand(new Player(name, phone, email, address, tagList));
-            case STAFF -> new AddCommand(new Staff(name, phone, email, address, tagList));
+        case PLAYER -> new AddCommand(new Player(name, phone, email, address, tagList));
+        case STAFF -> new AddCommand(new Staff(name, phone, email, address, tagList));
         };
     }
 
