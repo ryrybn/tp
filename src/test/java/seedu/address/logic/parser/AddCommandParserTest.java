@@ -161,7 +161,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, validExpectedPersonString + INVALID_ADDRESS_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
 
-        // invalid address
+        // invalid role
         assertParseFailure(parser, validExpectedPersonString + INVALID_ROLE_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE));
     }
