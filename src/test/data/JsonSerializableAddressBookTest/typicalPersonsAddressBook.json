@@ -1,17 +1,17 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
-    "name" : "Amy Tan",
-    "phone" : "91234567",
-    "email" : "amytan@example.com",
-    "address" : "5th street",
-    "tags" : ["goalkeeper"],
+    "name" : "Amy Bee",
+    "phone" : "98888888",
+    "email" : "Player_Amy@example.com",
+    "address" : "Block 33, Street 34",
+    "tags" : ["friend"],
     "role" : "PLAYER"
   }, {
-    "name" : "Ben Lim",
-    "phone" : "92345678",
-    "email" : "benlim@example.com",
-    "address" : "6th street",
+    "name" : "Ben Tan",
+    "phone" : "99999999",
+    "email" : "Player_Ben@example.com",
+    "address" : "Block 123, Street 3",
     "tags" : [ ],
     "role" : "PLAYER"
   }, {
