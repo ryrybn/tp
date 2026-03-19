@@ -54,10 +54,15 @@ public class PersonHasRolePredicateTest {
     }
 
     @Test
-    public void test_personHasNullRole_returnsFalse() {
-        PersonHasRolePredicate predicate = new PersonHasRolePredicate(Role.PLAYER);
-        // Person built with old constructor has null role
-        assertFalse(predicate.test(new PersonBuilder().build()));
+    public void test_personHasPlayerRole_returnsTrue() {
+        PersonHasRolePredicate playerPredicate = new PersonHasRolePredicate(Role.PLAYER);
+        assertTrue(playerPredicate.test(new PersonBuilder().withRole(Role.PLAYER).build()));
+    }
+
+    @Test
+    public void test_personHasStaffRole_returnsTrue() {
+        PersonHasRolePredicate staffPredicate = new PersonHasRolePredicate(Role.STAFF);
+        assertTrue(staffPredicate.test(new PersonBuilder().withRole(Role.STAFF).build()));
     }
 }
 

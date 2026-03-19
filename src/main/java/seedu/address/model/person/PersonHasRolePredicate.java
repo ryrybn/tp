@@ -16,7 +16,7 @@ public class PersonHasRolePredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return person.getRole() == role;
+        return person.getRole() == role && role != null;
     }
 
     @Override

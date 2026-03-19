@@ -26,9 +26,13 @@
           </minWidth>
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <FlowPane fx:id="staff" alignment="CENTER_LEFT" hgap="4" vgap="2">
+          <padding>
+           <Insets left="7"/>
+          </padding>
+        </FlowPane>
       </HBox>
       <FlowPane fx:id="tags" />
-      <FlowPane fx:id="staff" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />

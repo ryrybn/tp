@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBookWithRoles;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class ListRoleCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBookWithRoles(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
@@ -75,7 +75,7 @@ public class ListRoleCommandTest {
         PersonHasRolePredicate predicate = new PersonHasRolePredicate(Role.PLAYER);
         new ListRoleCommand(predicate, "players").execute(model);
         assertEquals(model.getFilteredPersonList().size(),
-                (int) getTypicalAddressBookWithRoles().getPersonList().stream()
+                (int) getTypicalAddressBook().getPersonList().stream()
                         .filter(predicate)
                         .count());
     }

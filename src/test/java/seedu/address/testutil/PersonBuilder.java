@@ -21,6 +21,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final Role DEFAULT_ROLE = Role.PLAYER;
 
     private Name name;
     private Phone phone;
@@ -39,7 +40,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        role = null;
+        role = DEFAULT_ROLE;
     }
 
     /**
@@ -106,10 +107,7 @@ public class PersonBuilder {
      * Builds and returns a {@code Person} with the current attributes.
      */
     public Person build() {
-        if (role == null) {
-            return new Person(name, phone, email, address, tags);
-        }
-        return new Person(name, phone, email, address, tags, role);
+        return Person.createPerson(name, phone, email, address, tags, role);
     }
 
 }
