@@ -18,28 +18,14 @@ public class CommandResult {
 
     /** The application should exit. */
     private final boolean exit;
-    /** Base delete command awaiting Y/N input. */
-    private final String pendingDeleteBaseCommand;
-    /** Delete criteria awaiting clash index selection. */
-    private final String pendingDeleteCriteria;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, null, null);
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with optional delete continuation metadata.
-     */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         String pendingDeleteBaseCommand, String pendingDeleteCriteria) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.pendingDeleteBaseCommand = pendingDeleteBaseCommand;
-        this.pendingDeleteCriteria = pendingDeleteCriteria;
     }
 
     /**
@@ -62,14 +48,6 @@ public class CommandResult {
         return exit;
     }
 
-    public String getPendingDeleteBaseCommand() {
-        return pendingDeleteBaseCommand;
-    }
-
-    public String getPendingDeleteCriteria() {
-        return pendingDeleteCriteria;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -84,14 +62,12 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit
-                && Objects.equals(pendingDeleteBaseCommand, otherCommandResult.pendingDeleteBaseCommand)
-                && Objects.equals(pendingDeleteCriteria, otherCommandResult.pendingDeleteCriteria);
+                && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, pendingDeleteBaseCommand, pendingDeleteCriteria);
+        return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
     @Override
@@ -100,8 +76,6 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
-                .add("pendingDeleteBaseCommand", pendingDeleteBaseCommand)
-                .add("pendingDeleteCriteria", pendingDeleteCriteria)
                 .toString();
     }
 

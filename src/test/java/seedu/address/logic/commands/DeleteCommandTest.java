@@ -41,8 +41,7 @@ public class DeleteCommandTest {
                 Messages.format(personToDelete), "Y", "N", "Y", "N");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        CommandResult expectedResult = new CommandResult(expectedMessage, false, false, "delete 1", null);
-        assertCommandSuccess(deleteCommand, model, expectedResult, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -91,8 +90,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList("George")));
-        CommandResult expectedResult = new CommandResult(expectedMessage, false, false, "delete George", null);
-        assertCommandSuccess(deleteCommand, model, expectedResult, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -106,8 +104,7 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(
                 new NameContainsKeywordsPredicate(Arrays.asList(KEYWORD_MATCHING_MEIER)));
-        CommandResult expectedResult = new CommandResult(expectedMessage, false, false, null, KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(deleteCommand, model, expectedResult, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -136,8 +133,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
-        CommandResult expectedResult = new CommandResult(expectedMessage, false, false, "delete 1", null);
-        assertCommandSuccess(deleteCommand, model, expectedResult, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -170,8 +166,8 @@ public class DeleteCommandTest {
         Index targetIndex = Index.fromOneBased(1);
         DeleteCommand deleteCommand = new DeleteCommand(targetIndex);
         String expected = DeleteCommand.class.getCanonicalName()
-                + "{targetIndex=seedu.address.commons.core.index.Index{zeroBasedIndex=0}, criteria=null, "
-                + "criteriaMatchIndex=null, deletionDecision=UNDECIDED}";
+                + "{targetIndex=" + targetIndex
+                + ", criteria=null, criteriaMatchIndex=null, deletionDecision=UNDECIDED}";
         assertEquals(expected, deleteCommand.toString());
     }
 }

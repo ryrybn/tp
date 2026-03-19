@@ -119,8 +119,7 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        String baseCommand = COMMAND_WORD + " " + targetIndex.getOneBased();
-        return executeDecision(model, personToDelete, baseCommand);
+        return executeDecision(model, personToDelete);
     }
 
     private CommandResult executeCriteriaDelete(Model model) throws CommandException {
@@ -133,14 +132,11 @@ public class DeleteCommand extends Command {
 
         if (matches.size() > 1 && criteriaMatchIndex == null) {
             String formattedMatches = formatMatches(matches);
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_CLASH, criteria, formattedMatches),
-                    false, false, null, criteria);
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_CLASH, criteria, formattedMatches));
         }
 
         Person personToDelete = selectPersonFromMatches(matches);
-        String selectionFragment = criteriaMatchIndex == null ? "" : " " + criteriaMatchIndex.getOneBased();
-        String baseCommand = COMMAND_WORD + " " + criteria + selectionFragment;
-        return executeDecision(model, personToDelete, baseCommand);
+        return executeDecision(model, personToDelete);
     }
 
     private Person selectPersonFromMatches(List<Person> matches) throws CommandException {
@@ -155,7 +151,7 @@ public class DeleteCommand extends Command {
         return matches.get(criteriaMatchIndex.getZeroBased());
     }
 
-    private CommandResult executeDecision(Model model, Person personToDelete, String baseCommandForContinuation) {
+    private CommandResult executeDecision(Model model, Person personToDelete) {
         if (deletionDecision == DeletionDecision.CONFIRM) {
             model.deletePerson(personToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
@@ -169,8 +165,7 @@ public class DeleteCommand extends Command {
                 Messages.format(personToDelete), YES_KEYWORD.toUpperCase(Locale.ROOT),
                 NO_KEYWORD.toUpperCase(Locale.ROOT),
                 YES_KEYWORD.toUpperCase(Locale.ROOT),
-                NO_KEYWORD.toUpperCase(Locale.ROOT)),
-                false, false, baseCommandForContinuation, null);
+                NO_KEYWORD.toUpperCase(Locale.ROOT)));
     }
 
     private NameContainsKeywordsPredicate buildNamePredicate(String rawCriteria) {
@@ -182,6 +177,41 @@ public class DeleteCommand extends Command {
         return IntStream.range(0, matches.size())
                 .mapToObj(i -> (i + 1) + ". " + Messages.format(matches.get(i)))
                 .collect(Collectors.joining("\n"));
+    }
+
+    /**
+     * Returns the target index for index-based delete commands.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Returns the raw criteria for criteria-based delete commands.
+     */
+    public String getCriteria() {
+        return criteria;
+    }
+
+    /**
+     * Returns the clash-selection index for criteria-based delete commands, if present.
+     */
+    public Index getCriteriaMatchIndex() {
+        return criteriaMatchIndex;
+    }
+
+    /**
+     * Returns the current deletion decision state.
+     */
+    public DeletionDecision getDeletionDecision() {
+        return deletionDecision;
+    }
+
+    /**
+     * Returns true if this command deletes by criteria instead of list index.
+     */
+    public boolean isCriteriaDelete() {
+        return criteria != null;
     }
 
     @Override

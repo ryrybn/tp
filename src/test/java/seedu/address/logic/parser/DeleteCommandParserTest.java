@@ -19,7 +19,6 @@ public class DeleteCommandParserTest {
     public void parse_validIndexArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
         assertParseSuccess(parser, "1 confirm", new DeleteCommand(INDEX_FIRST_PERSON, DeletionDecision.CONFIRM));
-        assertParseSuccess(parser, "1 y", new DeleteCommand(INDEX_FIRST_PERSON, DeletionDecision.CONFIRM));
         assertParseSuccess(parser, "1 n", new DeleteCommand(INDEX_FIRST_PERSON, DeletionDecision.CANCEL));
     }
 
@@ -39,6 +38,8 @@ public class DeleteCommandParserTest {
         assertParseFailure(parser, "1 nope",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "1 confirm extra",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 y",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }
