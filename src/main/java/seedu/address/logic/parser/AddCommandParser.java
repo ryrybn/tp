@@ -18,9 +18,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Player;
 import seedu.address.model.person.Role;
-import seedu.address.model.person.Staff;
 import seedu.address.model.tag.Tag;
 
 /**
