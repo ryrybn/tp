@@ -79,9 +79,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_criteriaSingleMatch_success() {
-        DeleteCommand deleteCommand = new DeleteCommand("George", null, DeletionDecision.UNDECIDED);
+        DeleteCommand deleteCommand = new DeleteCommand("Ida", null, DeletionDecision.UNDECIDED);
         Person personToDelete = model.getAddressBook().getPersonList().stream()
-                .filter(person -> person.getName().fullName.equals("George Best"))
+                .filter(person -> person.getName().fullName.equals("Ida Mueller"))
                 .findFirst()
                 .orElseThrow();
 
@@ -89,21 +89,20 @@ public class DeleteCommandTest {
                 Messages.format(personToDelete), "Y", "N", "Y", "N");
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList("George")));
+        expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList("Ida")));
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_criteriaClashListsCandidates_success() {
         DeleteCommand deleteCommand = new DeleteCommand(KEYWORD_MATCHING_MEIER, null, DeletionDecision.UNDECIDED);
-        String expectedList = "1. " + Messages.format(model.getAddressBook().getPersonList().get(1)) + "\n"
-                + "2. " + Messages.format(model.getAddressBook().getPersonList().get(3));
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_CLASH,
-                KEYWORD_MATCHING_MEIER, expectedList);
-
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(
                 new NameContainsKeywordsPredicate(Arrays.asList(KEYWORD_MATCHING_MEIER)));
+        String expectedList = "1. " + Messages.format(expectedModel.getFilteredPersonList().get(0)) + "\n"
+                + "2. " + Messages.format(expectedModel.getFilteredPersonList().get(1));
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_CLASH,
+                KEYWORD_MATCHING_MEIER, expectedList);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
@@ -111,13 +110,12 @@ public class DeleteCommandTest {
     public void executeCriteriaClashWithIndexAndConfirmDeletesSelectedSuccess() {
         DeleteCommand deleteCommand = new DeleteCommand(KEYWORD_MATCHING_MEIER, INDEX_SECOND_PERSON,
                 DeletionDecision.CONFIRM);
-        Person personToDelete = model.getAddressBook().getPersonList().get(3);
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-                Messages.format(personToDelete));
-
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(
                 new NameContainsKeywordsPredicate(Arrays.asList(KEYWORD_MATCHING_MEIER)));
+        Person personToDelete = expectedModel.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.format(personToDelete));
         expectedModel.deletePerson(personToDelete);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
