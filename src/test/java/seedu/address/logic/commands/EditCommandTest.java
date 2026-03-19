@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_PLAYER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_PLAYER_BEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PLAYER_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_PLAYER_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -55,13 +56,11 @@ public class EditCommandTest {
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_PLAYER_BEN).withPhone(VALID_PHONE_PLAYER_BEN)
+        Person editedPerson = personInList.withName(VALID_NAME_JOHN).withPhone(VALID_PHONE_PLAYER_BEN)
                 .withTags(VALID_TAG_HUSBAND).build();
-
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_PLAYER_BEN)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_JOHN)
                 .withPhone(VALID_PHONE_PLAYER_BEN).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
-
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -87,9 +86,9 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_PLAYER_BEN).build();
+        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_JOHN).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_PLAYER_BEN).build());
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_JOHN).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 

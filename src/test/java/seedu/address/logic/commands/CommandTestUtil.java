@@ -28,6 +28,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_NAME_PLAYER_BEN = "Ben Tan";
+    public static final String VALID_NAME_JOHN = "JOHN";
     public static final String VALID_PHONE_PLAYER_BEN = "99999999";
     public static final String VALID_EMAIL_PLAYER_BEN = "Player_Ben@example.com";
     public static final String VALID_ADDRESS_PLAYER_BEN = "Block 123, Street 3";

@@ -15,11 +15,11 @@ public class TypicalPersons {
 
     // Persons with roles
     public static final Person PLAYER_AMY =
-            new PersonBuilder().withName("Amy Tan").withPhone("91234567").withEmail("amytan@example.com")
-                    .withAddress("5th street").withTags("goalkeeper").withRole(Role.PLAYER).build();
+            new PersonBuilder().withName("Amy Bee").withPhone("98888888").withEmail("Player_Amy@example.com")
+                    .withAddress("Block 33, Street 34").withTags("friend").withRole(Role.PLAYER).build();
     public static final Person PLAYER_BEN =
-            new PersonBuilder().withName("Ben Lim").withPhone("92345678").withEmail("benlim@example.com")
-                    .withAddress("6th street").withRole(Role.PLAYER).build();
+            new PersonBuilder().withName("Ben Tan").withPhone("99999999").withEmail("Player_Ben@example.com")
+                    .withAddress("Block 123, Street 3").withRole(Role.PLAYER).build();
     public static final Person PLAYER_CHARLIE =
             new PersonBuilder().withName("Charlie Ng").withPhone("93456789").withEmail("charlieng@example.com")
                     .withAddress("7th street").withRole(Role.PLAYER).build();

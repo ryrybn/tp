@@ -17,10 +17,10 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Amy Bee";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_NAME = "Sugon Dese";
+    public static final String DEFAULT_PHONE = "24734435";
+    public static final String DEFAULT_EMAIL = "sugondese@gmail.com";
+    public static final String DEFAULT_ADDRESS = "Changi Airport";
     public static final Role DEFAULT_ROLE = Role.PLAYER;
 
     private Name name;
@@ -32,7 +32,6 @@ public class PersonBuilder {
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
-     * Role is null by default; use {@code withRole} to specify a role.
      */
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);

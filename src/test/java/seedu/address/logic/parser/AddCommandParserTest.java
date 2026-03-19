@@ -58,7 +58,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Staff;
+import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -76,9 +76,8 @@ public class AddCommandParserTest {
 
         // allow player as preamble
         assertParseSuccess(parser,
-                "player" + NAME_DESC_PLAYER_BEN + PHONE_DESC_PLAYER_BEN + EMAIL_DESC_PLAYER_BEN
-                        + ADDRESS_DESC_PLAYER_BEN
-                        + ROLE_DESC_PLAYER + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                ROLE_DESC_PLAYER + NAME_DESC_PLAYER_BEN + PHONE_DESC_PLAYER_BEN
+                + EMAIL_DESC_PLAYER_BEN + ADDRESS_DESC_PLAYER_BEN + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags =
@@ -119,7 +118,8 @@ public class AddCommandParserTest {
         assertParseFailure(parser,
                 validExpectedPersonString + PHONE_DESC_PLAYER_AMY + EMAIL_DESC_PLAYER_AMY + NAME_DESC_PLAYER_AMY
                         + ADDRESS_DESC_PLAYER_AMY + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_PHONE));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_ADDRESS, PREFIX_EMAIL,
+                        PREFIX_PHONE, PREFIX_ROLE));
 
         // invalid value followed by valid value
 
@@ -251,7 +251,8 @@ public class AddCommandParserTest {
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser,
-                INVALID_NAME_DESC + PHONE_DESC_PLAYER_BEN + EMAIL_DESC_PLAYER_BEN + INVALID_ADDRESS_DESC,
+                INVALID_NAME_DESC + PHONE_DESC_PLAYER_BEN + EMAIL_DESC_PLAYER_BEN + ROLE_DESC_PLAYER
+                        + INVALID_ADDRESS_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
@@ -263,12 +264,11 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_staff_createsStaff() throws Exception {
-        String testInput = "staff " + "n/John Doe " + "p/98765432 " + "e/john@email.com " + "a/123 Clementi Rd";
-
+        String testInput = " n/John Doe " + "r/staff " + "p/98765432 " + "e/john@email.com " + "a/123 Clementi Rd";
         AddCommand command = parser.parse(testInput);
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         command.execute(modelStub);
-        assertTrue(modelStub.personsAdded.get(0) instanceof Staff);
+        assertTrue(modelStub.personsAdded.get(0).getRole() == Role.STAFF);
     }
 
     /**
